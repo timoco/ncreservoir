@@ -1,0 +1,89 @@
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+// 	$("#demo").html('<button type="button" id="toggleReport">Show Report</button>');
+// //	dojo.byId("demo").innerHTML='<button type="button" id="toggleReport">Show Report</button>';
+	
+	
+// 	$("#toggleReport").click(function(){
+// 		$("#floatReport").toggle("slow","linear");
+// 		if ($("#toggleReport").text() === 'Show Report'){
+// 			$("#toggleReport").text("Hide Report");
+// 		} else {
+// 			$("#toggleReport").text("Show Report");
+// 		}
+// 	});
+	
+// // 	var QueryString = function () {
+// // 	  // This function is anonymous, is executed immediately and 
+// // 	  // the return value is assigned to QueryString!
+// // 	  var query_string = {};
+// // 	  var query = window.location.search.substring(1);
+// // 	  var vars = query.split("&");
+// // 	  for (var i=0;i<vars.length;i++) {
+// // 	    var pair = vars[i].split("=");
+// // 	    	// If first entry with this name
+// // 	    if (typeof query_string[pair[0]] === "undefined") {
+// // 	      query_string[pair[0]] = pair[1];
+// // 	    	// If second entry with this name
+// // 	    } else if (typeof query_string[pair[0]] === "string") {
+// // 	      var arr = [ query_string[pair[0]], pair[1] ];
+// // 	      query_string[pair[0]] = arr;
+// // 	    	// If third or later entry with this name
+// // 	    } else {
+// // 	      query_string[pair[0]].push(pair[1]);
+// // 	    }
+// // 	  } 
+// // 	    return query_string;
+// // 	} ();
+
+	
+// 	console.log(QueryString.jobId);
+	/* $("#onoffButton").click(function(){
+		//$("#basicNode").slideToggle("slow");
+		$("#basicNode").toggle();
+	}); */
+	
+	 var query_string = {};
+	 var query = window.location.search.substring(1);
+	 alert(window.location);
+	 console.log(window.location.search);
+ 	console.log(query);
+	 
+	 $("#onoffButton").click(function(){
+		    $("#jobReport").toggle();
+		    $("#jobId").text('111');
+		 });
+});	
+
+/* var startVals=function(){
+	$("#jobId").text(resScanResult.JobId);
+	alert("START VALS");
+} */
+</script>
+
+<!-- "BODY" of the REPORT -->
+<div id="report	">
+	<h3>ResScan Report : </h3>
+	JobID: <p id="jobIdLabel"><script>resScanResult.JobId</script></p>
+	<div id="section">
+	</div>
+	<button type="button" id="onoffButton">Hide</button>
+	<div id="jobReport">	
+		<b>This is a container of random content to toggle!</b>
+	</div>
+	
+	<div id='resScanReport' class='report'>
+<!-- 	<p>Impact Report</p> -->
+<!-- 		<table> -->
+<!-- 		<tr><td>Location: </td><td>"  + reqJSONobj.resScanReq[0].lat + ", " + reqJSONobj.resScanReq[0].lng + "</td></tr> -->
+<!-- 		<tr><td>Location: </td><td>"  + document.getElementById("lat").value+ ", " +document.getElementById("lng").value+ "</td></tr> -->
+<!-- 		<tr><td>Dam Height: : </td><td>"  + reqJSONobj.resScanReq[0].damHt + "</td></tr> -->
+<!-- 		<tr><td>Dam Height: </td><td>"  + document.getElementById("damHt").value+ "</td></tr> -->
+<!-- 		<tr id='HUC_row'><td>HUC</td><td>" + reqJSONobj.resScanReq[0].huc +"</td></tr> -->
+<!-- 		<tr><td>--</td></tr> -->
+<!-- 		</table> -->
+	</div>
+</div>
+	

@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9" />
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Create Profile from Surface</title>
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.7/js/dojo/dijit/themes/claro/claro.css">
+    <script type="text/javascript">djConfig = { parseOnLoad:true }</script>
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.7"></script>
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.require("esri.toolbars.draw");
+      dojo.require("esri.tasks.query");
+
+      dojo.require("dijit.form.Button");
+      dojo.require("dijit.Dialog");
+      dojo.require("dojox.charting.themes.MiamiNice");
+      dojo.require("dojox.charting.Chart2D");
+      dojo.require("dojox.charting.action2d.Tooltip");
+      dojo.require("dojox.charting.action2d.Magnify");
+      dojo.require("dijit.dijit");
+      dojo.require("dojox.grid.DataGrid");
+      dojo.require("dojo.data.ItemFileWriteStore");
+      dojo.require("dojo.parser");
+
+      
+      var map, gp, toolbar;
+      var data_list = [];
+      
+      /*Initialize map, GP & image params*/
+      function init() {
+        var startExtent = new esri.geometry.Extent({"xmin":-9176988.991413958,"ymin":4047261.975736442,"xmax":-8589952.614183832,"ymax":4384807.892643764,"spatialReference":{"wkid":102100}});
+        map = new esri.Map("mapDiv",{extent:startExtent});
+
+         var streetMap = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
+        map.addLayer(streetMap);    
+
+
+         var featureLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://152.19.196.69:6080/arcgis/rest/services/testing/allHucOne/MapServer");
+         //featureLayer.hide()
+         map.addLayer(featureLayer)
+
+         dojo.connect(map, "onLoad", selectPoint);
+
+
+         //build query task
+       queryTask = new esri.tasks.QueryTask("http://152.19.196.69:6080/arcgis/rest/services/testing/allHucOne/MapServer/0");
+    
+         query = new esri.tasks.Query();
+       query.returnGeometry = true;
+         query.outFields = ["FID","label","F_AREA"];
+       query.outSpatialReference = {"wkid":102100};    
+
+         var hucname = "";
+    }
+
+     function selectPoint(evt) {
+        gp = new esri.tasks.Geoprocessor("http://152.19.196.69:6080/arcgis/rest/services/testing/lake/GPServer/Model");
+        gp.setOutputSpatialReference({wkid:102100});
+        dojo.connect(gp, "onExecuteComplete", displayResults);
+
+        toolbar = new esri.toolbars.Draw(map);
+        dojo.connect(toolbar, "onDrawEnd", getparams);
+
+     }
+
+      function getparams(geometry) {
+        
+        map.showZoomSlider();
+        map.graphics.clear();
+
+                
+          var symbol = new esri.symbol.SimpleMarkerSymbol(esri.symbol.SimpleMarkerSymbol.STYLE_SQUARE, 10, new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255,0,0]), 1), new dojo.Color([0,255,0,0.25]));
+          
+
+          var graphic = new esri.Graphic(geometry,symbol);
+        map.graphics.add(graphic);
+        toolbar.deactivate();
+
+    
+
+        var features= [];
+        features.push(graphic);
+
+          var featureSet = new esri.tasks.FeatureSet();
+        featureSet.features = features;
+
+          graphic = featureSet.features[0].geometry;
+    
+          dojo.byId("pointX").value = graphic.x;
+          dojo.byId("pointY").value = graphic.y;
+
+          query.geometry = geometry;
+          queryTask.execute(query, showResults);    
+    
+          //alert("Point position: X:"+ graphic.x+" Y:"+ graphic.y+"\n" + " dam height: " + hz+"\n"+ " dam maximum height: "+ hzmax );
+            
+      }
+
+
+     function showResults(featureSet) {
+        var resultFeatures = featureSet.features;
+
+  //Loop through each feature returned
+      for (var i=0, il=resultFeatures.length; i<il; i++) {
+        var graphic = resultFeatures[i];
+        hucname = graphic.attributes.label+"";
+        //alert("Huc id:   "+graphic.attributes.FID+"\nhuc_label:"+graphic.attributes.label+"\nHuc area:"+ graphic.attributes.F_AREA);
+        dojo.byId("huc").value = hucname;  
+      }
+
+        hz = dojo.byId("damz").value;
+        x = dojo.byId("pointX").value;
+        y =dojo.byId("pointY").value;
+        hucname = dojo.byId("huc").value;
+        //alert("Point position: X:"+x+ " Y:"+y +"\n" + " dam height: " + hz+"\n"+ " dam maximum height: "+ hzmax +"\n"+ hucname);
+        var featureSet = new esri.tasks.FeatureSet();
+        var params = { "Input_DEM":"dem01","Point_X":1500,"Point_Y":850,"Dam_height":hz,"Stage_":true};
+        gp.submitJob(params,displayResults,statusCallback,onError);
+     }
+
+      function statusCallback(jobInfo) {
+        process = dojo.byId("process");
+        var status = jobInfo.jobStatus;
+        if(status === "esriJobFailed"){
+          alert(status);
+          //esri.hide(loading);
+        }
+        else if (status === "esriJobSucceeded"){
+          //esri.hide(loading);
+          process.style.visibility="hidden";
+        }
+        else {
+          process.style.visibility="visible";
+          process.style.fontSize="xx-large";
+          
+        }
+      }
+
+     function onError(error){
+        alert(error);
+     }
+      
+      function displayResults(jobInfo) {    
+        //alert("execute complete");
+        
+        gp.getResultData(jobInfo.jobId,"area",createChart);
+        var imageParams = new esri.layers.ImageParameters();
+        gp.getResultData(jobInfo.jobId, "out",addimage);
+        gp.getResultData(jobInfo.jobId,"volume",createChart);
+    }
+
+    function addimage(layer){
+        water = layer.value.url;
+        var waterlayer = new esri.layers.ArcGISDynamicMapServiceLayer(water);
+        alert(water);      
+        map.addLayer(waterlayer);
+
+        //map.addLayer(layer);
+    }
+ 
+      function createChart(datalist){   
+    var outtable = document.getElementById('summry'); 
+    var col = 0;
+    var colname = datalist.paramName;
+
+    if (colname == "area"){
+       col = 1;
+    }
+    else if (colname == "volume"){
+      col = 2;
+    }
+    else{
+      col = 0;
+    }
+     hz = dojo.byId("damz").value; 
+
+    //alert(outtable.rows[0].cells.length);
+    rows = datalist.value.length
+    if (outtable.rows.length <= 1){
+       for (var i=0; i < rows; i++) {
+        var row = outtable.insertRow(1);
+        var cell1 = row.insertCell(-1);
+        cell1.innerHTML = hz;
+        hz = hz -10;
+        //cell.innerHTML = datalist.value[i];
+      }
+    }
+
+      if (col >= 1){
+      outrows = outtable.rows.length
+       for (var i=1; i < outrows; i++) {
+        var row = outtable.rows[i];
+        var cell = row.insertCell(col);
+        cell.innerHTML = datalist.value[rows-i];
+      }
+    }
+
+
+
+    //alert(colname + col);
+    /* rows = datalist.value.length
+       for (var i=0; i < rows; i++) {
+        var row = outtable.insertRow(1);
+        var cell1 = row.insertCell(col);
+        cell1.innerHTML = datalist.value[i];
+      }  
+*/
+      }
+
+      dojo.addOnLoad(init);
+      
+    </script>
+
+  </head>
+  <body class="claro">
+ 
+    <div>
+        <label for="text">Dam Height:</label>
+        <input id="damz" value = "10">
+    </div>
+    
+    <div>
+        <input id="huc" value = "huc name">
+     <input id="pointX" value = "0">
+     <input id="pointY" value = "0">
+    </div>
+
+    <table>
+      <tbody> 
+          <tr>
+          <td><div dojoType="dijit.form.Button" id="drawpoint" onclick="toolbar.activate(esri.toolbars.Draw.POINT);map.hideZoomSlider();">Draw a point</div>  Draw a point to get the water surface.</td>
+        </tr>
+        <tr>
+          <td><div id="process" style="visibility:hidden">Calculating from the server...</div></td>
+        </tr>
+        <tr>
+          <td id="mapDiv" style="width:1000px; height:600px; border:1px solid #000;"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table  id="summry"border="1">
+      <tr>
+        <th>Dam Height</th>
+        <th>Area</th>
+        <th>Volume</th>
+      </tr>
+    </table>
+    
+  </body>
+</html> 

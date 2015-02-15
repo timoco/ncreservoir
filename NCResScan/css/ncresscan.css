@@ -1,0 +1,410 @@
+/*NCResScan.css
+*
+* 	Styles for the NCResScan web mapping applicaiton
+*	DATE: FEB 2013
+*/
+html,body,#mapDiv,.map.container{
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+ #right_nav { 
+    position:absolute; 
+    right:30px; 
+    top:27px;
+    z-index:500;
+    list-style-type: none;
+ }
+ #main_nav { 
+    position:absolute; 
+    left:30px; 
+    top:10px;
+    z-index:500;
+    list-style-type: none;
+ }
+
+ #main_nav li { float:left; margin-left:2px; background:#71919e;}
+ #main_nav li a{ font-size:16px; color:#FFFFFF; text-decoration:none; padding:8px 15px; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px;}
+ #main_nav li a.active ,
+ #main_nav li a:hover{ background-color:#0b86cb;  }
+ 
+/* control panel -- right hand location for scan report information */
+#controlPanel{   
+    position:absolute;  
+    /*width:200px;height:250px;top:100px;right:100px;  */
+    top:100px; right:10px;
+    /*height: 70%;*/
+    width:30%;
+    /*border:2px solid #2266AA;  */
+    z-index:100;
+    border:2px solid #a1a1a1;
+    background:white;
+    border-radius:15px;
+    padding:5px 5px;
+    font-size:10px; color:black; 
+    text-decoration:none; 
+    opacity: 0.9;
+    /*background:url("../imgs/i_hydro.png") no-repeat;*/
+    /*font-size:16px; */
+    /*color:black;*/
+
+
+   /* font-size:10px; color:black; 
+    text-decoration:none; 
+    padding:25px 5px; 
+    -moz-border-radius:7px; 
+    -webkit-border-radius:7px; 
+    border-radius:7px;
+    /*border-color: black;*/
+/*    float:left; 
+    /*margin-left:2px;*/
+  /*  background:url("../imgs/i_hydro.png") no-repeat;
+    border-style:outset;
+*//*/
+    /*display:none;*/
+  } 
+  .contentTitle{
+    padding-left: 10px;
+    /*padding-top: -10px;*/
+    font-size:16px; color:black; 
+    /*text-align:right;*/
+    text-align: justify;
+    /*text-decoration:none; */
+  }
+  #resScanContent{
+    position:relative;
+    /*height: 200px;*/
+    /*background: blue;*/
+    border:2px solid #F4A460;
+    padding:15px 5px; 
+    background:#F0F8FF;
+    border-radius:5px;
+
+  }
+  /* #currentLocSection{
+    position:relative;
+    border:2px solid #F4A460;
+    padding:15px 5px; 
+    background:#F0F8FF;
+    border-radius:5px;
+  }
+   #resScanSession{
+    position:relative;
+    border:2px solid #F4A460;
+    padding:15px 5px; 
+    background:#F0F8FF;
+    border-radius:5px;
+  }*/
+ div#currentLocSection,div#resScanSession,div#lyrsSection {
+    position:relative;
+    border:2px solid #F4A460;
+    padding:15px 5px 10px; 
+    /*background:#F0F8FF;*/
+    background: white;
+    border-radius:5px;
+    /*font-size:12px; color:red; */
+
+    font-family:georgia, serif;
+    color:#381704;
+    font-size:14px;
+    letter-spacing:0.1em;
+    line-height:200%;
+    padding-top:11px;
+
+  }
+/*div#search {*/
+    /*position:relative;*/
+    /*border:2px solid #F4A460;
+    padding:15px 5px 10px; */
+    /*background:#F0F8FF;*/
+/*    background: white;
+    border-radius:5px;
+*/    /*font-size:12px; color:red; */
+
+    /*font-family:georgia, serif;
+    color:#381704;
+    font-size:14px;
+    letter-spacing:0.1em;
+    line-height:200%;
+    padding-top:11px;*/
+  /*}*/
+
+.jobReport , .test_jobReport{
+
+    /*font-size:10px; color:black; 
+    text-decoration:none; 
+    padding:8px 15px; 
+    -moz-border-radius:7px; 
+      -webkit-border-radius:7px; 
+    border-radius:7px;
+    border-color: blue;
+    float:left; margin-left:2px; background:#D8F0E1;
+*/
+    position:relative;
+    width:100%;
+    border:1px solid #F4A460;
+    /*padding:5px 5px; */
+    background:#D8E3F0;
+    border-radius:5px;
+    text-align:center;
+    font-size:10px;  
+    font-family:georgia, serif;
+    margin-left: 2px;
+
+    border-color: black;
+    
+    /*font-size:8px; color:black;*/
+    /*font-family:georgia, serif;*/
+    /*padding-left: 40px;*/
+    /*color:#381704;*/
+    /*font-size:8px;*/
+    /*letter-spacing:0.1em;*/
+    /*line-height:200%;*/
+    /*padding-top:11px;*/
+
+} 
+.jobReport th{
+    /*position:relative;
+    width:100%;*/
+    /*border:2px solid #F4A460;*/
+    /*padding:15px 5px; */
+    background:#D8F0E1;
+    border-radius:5px;
+    text-align:center;
+    font-size:12px;
+    font-weight: bold;  
+    font-family:georgia, serif;
+ }
+
+
+#resGPOut {
+    position:relative;
+    /*border:2px solid #F4A460;
+    padding:15px 5px; */
+    /*background:#F0F8FF;*/
+    background: white;
+    border-radius:5px;
+    /*font-size:12px; color:red; */
+
+    font-family:georgia, serif;
+    /*color:#381704;*/
+    font-size:10px;
+    letter-spacing:0.1em;
+    line-height:200%;
+    padding-top:11px;
+
+}
+  
+/* Search -- Geocoder Class */
+#search {
+    position:absolute;  
+    /*width:200px;height:250px;top:100px;right:100px;  */
+    top:22px; left:495px;
+    width:50%;
+    /*display: block;*/
+    /*position: relative;*/
+    z-index: 700;
+
+    /*border:2px solid #a1a1a1;
+    background:white;
+    border-radius:15px;
+    padding:5px 5px;*/
+    font-size:10px; color:black; 
+    text-decoration:none; 
+
+    /*padding:15px 5px 10px; */
+   /* border:2px solid #F4A460;
+    padding:15px 5px; 
+    background:#F0F8FF;
+    border-radius:5px;*/
+    /*top: 10px;*/
+    /*right: 150px;
+    width: 350px;
+  */
+  /*
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 100px;
+    */
+  }
+
+  .simpleGeocoder, .simpleGeocoder .esriGeocoderContainer {
+    /*font-size: 12px;*/
+    font-size: 1em;
+    /*line-height: 2em;*/
+    /*height: 4em;*/
+    width: 100%;
+    
+  }
+  .simpleGeocoder .esriGeocoder input {
+    font-size: 12px;
+    margin: 10 0 0 0;
+    padding: 0 0 0 0;
+    
+    margin: 0 0 0 1.25%;
+    /*padding: 0 0 0 0;*/
+    
+    width: 90.75%;
+  }
+  /* use gray in the input box instead of black */
+  .simpleGeocoder .esriGeocoder input, 
+  .simpleGeocoder .esriGeocoder input:focus {
+    color: #686868;
+  }
+
+
+
+    div.resScanReport{
+      font-size:10px; color:black; 
+      text-decoration:none; 
+      padding:25px 5px; 
+      -moz-border-radius:7px; 
+      -webkit-border-radius:7px; 
+      border-radius:7px;
+      /*border-color: black;*/
+      float:left; 
+      padding:25px 5px; 
+      background:#D8F0E1;
+    }
+    /* table.report{
+      background:#D8F0E1;
+    }*/
+   .report td{
+    	/*position: relative;
+    	padding: 10px;
+    	border: 3px solid;  
+    	text-align: left;
+    	color:  #A9D0F5;*/
+
+      font-size:10px; color:black; 
+      text-decoration:none; 
+      padding:5px 5px; 
+      -moz-border-radius:7px; 
+      -webkit-border-radius:7px; 
+      border-radius:7px;
+      /*border-color: black;*/
+      float:left; 
+      padding:5px 5px; 
+      background:#D8F0E1;
+    	
+    }
+    .resScanReportTbl tr{
+	
+
+    }
+
+   
+  /*class for InfoWindow popup content*/
+   #doResScanInfoWin{
+    	padding: 10px;
+      background: #D8E3F0;
+      padding:8px 15px 20px 5px; 
+      -moz-border-radius:7px; 
+      -webkit-border-radius:7px; 
+      border-radius:7px;
+      border-color: blue;
+      float:left; margin-left:2px; 
+      /*width: 400px;*/
+
+    }
+
+
+  /*    doResScanInfoWin
+        position: absolute;
+        width: 200px; 
+        height: 200px; 
+        top: 250px; 
+        right: 250px;
+        padding: 20px;
+        border: 1px;
+        border-style: dashed;
+        border-color: #0B0B3B;
+        z-index: 100;
+        filter:alpha(opacity=60);
+        opacity:.8;
+        visibility:hidden; 
+  */
+
+  div.resScanForm{
+    /*height:120px;*/
+    display:none;
+    font-size:10px; color:black; 
+    text-decoration:none; 
+    padding:8px 15px; 
+    -moz-border-radius:7px; 
+    -webkit-border-radius:7px; 
+    border-radius:7px;
+    border-color: blue;
+    float:left; margin-left:2px; background:#D8F0E1;
+
+  }
+  p.viewResScanForm  {
+    /*background-image: '/imgs/close.png';*/
+    border:2px solid #a1a1a1;
+    padding:10px 10px; 
+    background:#dddddd;
+    border-radius:25px;
+  }
+  p.flip  {
+    background-image: '/NCResScan/imgs/close.png';
+    border:2px solid #a1a1a1;
+    padding:10px 10px; 
+    background:#dddddd;
+    border-radius:25px;
+  }
+  /* p.locDam  {
+    background-image: '../imgs/i_hydro.png';
+    border:2px solid #a1a1a1;
+    padding:10px 10px; 
+    background:#dddddd;
+    border-radius:25px;
+  }*/
+
+  div.damLoc{
+   /* height:50px;
+    width: 100%;*/
+    display:block;
+    font-size:10px; color:black; 
+    text-decoration:none; 
+    padding:8px 1px; 
+    -moz-border-radius:7px; 
+    -webkit-border-radius:7px; 
+    border-radius:7px;
+    border-color: blue;
+    /*float:left; margin-left:2px; background:#D8E3F0;*/
+     opacity: .80;
+  }
+
+ /*#running {
+    background-image:url('/imgs/spinner.gif');
+    background-color:  #F0F0F0;
+    background-repeat:no-repeat;
+   
+    opacity: .5;
+    font-size:8px; color:red; 
+    font-family:georgia, serif;
+   
+}*/
+.running {
+   /* position: relative;
+    width: 100%;*/
+    /*height: 36px;*/
+    opacity: .5;
+    background-image:url('/NCResScan/imgs/spinner.gif');
+    background-color:  #F0F0F0;
+    background-repeat:no-repeat;
+    /*background: url('/imgs/spinner.gif') left center no-repeat;*/
+    /*background-image: '../imgs/spinner.gif';*/
+    /*border-color: blue;*/
+    border:2px solid;
+    border-radius:7px;
+    border-color: #F4A460;
+    font-size:8px; color:black;
+    font-family:georgia, serif;
+    padding-left: 40px;
+   
+}
+
+

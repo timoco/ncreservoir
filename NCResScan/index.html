@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7" /> 
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Welcome to NCResScan.</title>
+
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/esri/css/esri.css">
+    <!-- <link rel="stylesheet" href="css/myInfoWindow.css"> -->
+    <!-- Google WebFonts  -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'> -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css'>
+    
+    <!--NCResScan CSS -->
+    <link rel="stylesheet" href="/NCResScan/css/ncresscan.css">
+    
+    <script type="text/javascript">
+      var djConfig = {
+        parseOnLoad: true
+      };
+    </script>
+    <!--<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.4/"></script> -->
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>     
+    
+    
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+    <!--NCResScan JS -->
+    <script type="text/javascript" src="/NCResScan/js/ncresscan.js"></script>
+  </head> 
+
+  <body class="claro"> 
+    
+      <ul id="main_nav">
+        <li><a href="#" class="active">NCResScan Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Data</a></li>
+        <li><a href="#">Reports</a></li>
+     </ul>
+                                 
+  <div id="search"></div>
+  <div id="right_nav"> <!-- Welcome to NCResScan. -->
+      <div data-dojo-type="dijit.TitlePane" data-dojo-props="title:'Switch Basemap', closable:false,  open:false">
+                <div data-dojo-type="dijit.layout.ContentPane" style="width:180px; height:280px; overflow:auto;">
+                    <div id="basemapGallery"></div>
+                </div>
+            </div>
+  </div>
+
+	 
+  <!-- <div id="legendDiv">THIS IS THE LEGEND DIV -->
+   
+  </div>  
+  <div id="mapDiv"></div>
+
+  <!-- <div id="runWin">NCResScan is Running</div> -->
+    <!-- <div id="floatdiv"> This is a floating javascript menu. </div>   -->
+    <!-- <div id="createReq"> The Request Window </div>   -->
+
+
+  <div id="controlPanel">
+    
+    <!-- <br />Layer List : 
+    <span id="layer_list">
+      <input type='checkbox' class='list_item' id='4' value=4 onclick='updateLayerVisibility();'/>Basins&nbsp;&nbsp;
+      <input type='checkbox' class='list_item' id='9' value=9 onclick='updateLayerVisibility();'/>Urban Areas&nbsp;&nbsp;
+    </span>
+    <br /><br /> -->
+      <img class='viewContrPanel' src="/NCResScan/imgs/i_hydro.png"><span class='contentTitle'>Welcome to the NCResScan</span>
+      
+      <div id="resScanContent">
+         
+          <!-- <br /> -->
+        <div id="lyrsSection">
+          <img class="viewLyrs" src="/NCResScan/imgs/open.png">
+           Layer List : <span id="layer_list"></span><br />  
+          <div id="legendDiv"></div> 
+      </div>
+        <br />
+        <div id="currentLocSection">
+           <!-- <table class='report'>; -->
+           <img class="viewLocImg" src="/NCResScan/imgs/open.png">  Current Location:
+           <p class="currLoc"></p>
+        </div>
+
+        <br />
+        <div id="resScanSession">
+            <div id="resScanReports">
+              <img class="viewReportImg" src="/NCResScan/imgs/close.png"> NC Res Scan Reports:
+            <!--//Loop through the reports and or jobs ???? -->  
+              <div id="resScanReport">
+                <!-- <span class='contentTitle'> -->
+                  <!-- </span> -->
+                  <!-- // Loop through GP Services jobs -> jobId Loc, dam ht, x,y, input output -->
+                  <div id="job">
+                      <!-- GET JOBS FOR SESSION ID -->
+                      <!-- <table class='report'>
+                        <tr><td>Res Scan Job Report</td></tr>
+                        <tr><td>img</td></tr> -->
+                     <!-- <tr><td><img src="/imgs/close.png"> Jobs:</td></tr> -->
+                     <!-- EACH LOOP OF THIS NEXT BLOCK WILL PRODUCE A NEW ROW IN THE TABLE-->
+                    <!--<tr><td>Location: </td><td> + loc.lat+ , +loc.lng+ </td></tr>
+                    <tr><td>Dam Height: : </td><td> + loc.damHt + </td></tr>
+                    <tr id='HUC_row'><td>HUC</td><td> + loc.hucDEM +</td></tr>
+                     
+                      <tr>
+                        <td>Location ncresScan.jobs ?? ncresRescan.report
+                              Address
+                              Dam Ht
+                              RUn IMpact
+                              Run Stage
+                          </td>
+                      </tr>-->
+                      <!-- END OF EACH ROW LOOP -->
+                    <!-- </table> -->
+
+                  </div> <!-- job -->
+                  <div id="running"></div>
+                  <!-- <table class='report'> -->
+                     <!-- <tr><td><img src="/imgs/close.png"> Jobs:</td></tr> -->
+                     <!-- EACH LOOP OF THIS NEXT BLOCK WILL PRODUCE A NEW ROW IN THE TABLE-->
+                    <!--<tr><td>Location: </td><td> + loc.lat+ , +loc.lng+ </td></tr>
+                    <tr><td>Dam Height: : </td><td> + loc.damHt + </td></tr>
+                    <tr id='HUC_row'><td>HUC</td><td> + loc.hucDEM +</td></tr>
+                     
+                      <tr>
+                        <td>Location ncresScan.jobs ?? ncresRescan.report
+                              Address
+                              Dam Ht
+                              RUn IMpact
+                              Run Stage
+                          </td>
+                      </tr>-->
+                      <!-- END OF EACH ROW LOOP -->
+                  <!-- </table> -->
+                  
+                
+              </div> <!-- //resScanReport -->
+            
+            </div> <!-- //resScanReports -->
+        </div> <!-- //resScanSession -->
+      </div> <!-- content -->
+  </div> <!-- //controlPanel -->
+
+    <!-- <div id="runWin">NCResScan is Running</div> -->
+    <!-- <div id="floatdiv"> This is a floating javascript menu. </div>  
+    <div id="createReq"> The Request Window </div>  
+    <div id="floatReport">Here is where the Report results will be displayed</div> -->
+    
+   <!--  <div style="position:absolute; right:20px; top:60px; z-Index:999;opacity:0.75;">
+        <div data-dojo-type="dijit.TitlePane" data-dojo-props="title:'Switch Basemap', closable:false,  open:false">
+        <div data-dojo-type="dijit.layout.ContentPane" style="width:180px; height:280px; overflow:auto;">
+            <div id="basemapGallery"></div>
+        </div>
+        </div>
+    </div>   
+  -->
+ </body>
+ <div id='testStuff'></div>
+</html>
